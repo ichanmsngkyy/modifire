@@ -62,7 +62,7 @@ end
 
 group :test do
   # Matchers for cleaner tests
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 7.0"
 
   # Database cleaning between tests
   gem "database_cleaner-active_record", "~> 2.1"
