@@ -3,25 +3,13 @@ module Api
     class RegistrationsController < Devise::RegistrationsController
       respond_to :json
 
-      def create
-        build_resource(sign_up_params)
+      protected
 
-        resource.save
-        yield resource if block_given?
-        if resource.persisted?
-          sign_up(resource_name, resource)
-        else
-          clean_up_passwords resource
-          set_minimum_password_length
-        end
-        respond_with resource
+      def sign_up(resource_name, resource)
+        # Don't sign in automatically - API mode doesn't use sessions
       end
 
       private
-
-      def sign_up(resource_name, resource)
-        # Override to prevent auto sign-in (which uses sessions)
-      end
 
       def sign_up_params
         params.require(:user).permit(:username, :email, :password, :password_confirmation)

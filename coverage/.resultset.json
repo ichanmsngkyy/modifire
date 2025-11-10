@@ -1,26 +1,158 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/chan/modifire-api/app/controllers/api/auth/registrations_controller.rb": {
+      "/home/chan/modifire-api/app/models/user.rb": {
         "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          6,
+          6,
+          6,
+          null,
           0,
-          0
-        ],
-        "branches": {}
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          16,
+          null,
+          null
+        ]
+      },
+      "/home/chan/modifire-api/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/chan/modifire-api/app/models/jwt_deny_list.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
       },
       "/home/chan/modifire-api/app/controllers/api/auth/sessions_controller.rb": {
         "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          6,
+          6,
+          1,
+          null,
+          null,
+          1,
+          null,
+          5,
+          null,
+          5,
+          null,
+          2,
+          null,
+          2,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          3,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
           0,
-          0
-        ],
-        "branches": {}
+          0,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "/home/chan/modifire-api/app/controllers/application_controller.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {}
+          1,
+          null
+        ]
+      },
+      "/home/chan/modifire-api/app/controllers/api/auth/registrations_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          6,
+          null,
+          6,
+          6,
+          6,
+          2,
+          null,
+          4,
+          4,
+          null,
+          6,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          6,
+          null,
+          null,
+          1,
+          6,
+          2,
+          null,
+          null,
+          null,
+          null,
+          4,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "/home/chan/modifire-api/app/jobs/application_job.rb": {
         "lines": [
@@ -42,47 +174,8 @@
           0
         ],
         "branches": {}
-      },
-      "/home/chan/modifire-api/app/models/application_record.rb": {
-        "lines": [
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/home/chan/modifire-api/app/models/jwt_deny_list.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/home/chan/modifire-api/app/models/user.rb": {
-        "lines": [
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-    "timestamp": 1762716269
+    "timestamp": 1762761971
   }
 }
