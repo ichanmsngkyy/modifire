@@ -1,14 +1,24 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :jwt_authenticatable, jwt_revocation_strategy: JwtDenyList
+         :validatable, :jwt_authenticatable,
+         jwt_revocation_strategy: JwtDenyList
 
   before_create :generate_jti
 
-  validates :email, presence: true, uniqueness: true
-  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+
+  # Allow Devise to find user by username
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if (login = conditions.delete(:username))
+      where(conditions).find_by(username: login)
+    else
+      where(conditions).first
+    end
+  end
+
+  private
 
   def generate_jti
     self.jti ||= SecureRandom.uuid
