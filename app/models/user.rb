@@ -4,6 +4,9 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JwtDenyList
 
   before_create :generate_jti
+  has_many :builds
+  has_many :likes
+  has_many :notifications, foreign_key: :recipient_id
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :username, presence: true, uniqueness: { case_sensitive: false }
