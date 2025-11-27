@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :validatable, :jwt_authenticatable,
-         jwt_revocation_strategy: JwtDenyList
+       :recoverable, :rememberable, :validatable,
+       :jwt_authenticatable, jwt_revocation_strategy: JwtDenyList
 
   before_create :generate_jti
   has_many :builds
@@ -19,6 +19,11 @@ class User < ApplicationRecord
     else
       where(conditions).first
     end
+  end
+
+  # Add this method for JWT authentication
+  def self.find_for_jwt_authentication(sub)
+    find(sub)
   end
 
   private

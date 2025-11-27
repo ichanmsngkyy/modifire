@@ -4,6 +4,16 @@ module Api
       respond_to :json
       skip_before_action :verify_signed_out_user, only: :destroy
 
+      rescue_from NoMethodError do |exception|
+        if exception.message.include?("find_for_jwt_authentication")
+          render json: { error: "Invalid or expired token" }, status: :unauthorized
+        else
+          raise exception
+        end
+      end
+
+
+
       def create
         user_params = params.require(:user).permit(:username, :password)
         if user_params[:username].blank? || user_params[:password].blank?
@@ -31,22 +41,28 @@ module Api
         end
       end
 
-      private
-
-      def respond_to_on_destroy
-         render json: {
-            status: { code: 200, message: "Logged out successfully." }
-          }, status: :ok
-        # if current_user
-        #   render json: {
-        #     status: { code: 200, message: "Logged out successfully." }
-        #   }, status: :ok
-        # else
-        #   render json: {
-        #     status: { code: 401, message: "Couldn't find an active session." }
-        #   }, status: :unauthorized
-        # end
+      def failure
+        render json: {
+          status: { code: 401, message: "Invalid username or password." }
+        }, status: :unauthorized
       end
+
+      def current_user
+        if current_user
+          render json: { user: current_user }, status: :ok
+        else
+          render json: { error: "Not authenticated" }, status: :unauthorized
+        end
+      end
+
+      private
+      def respond_with(resource, _opts = {})
+      render json: { user: resource }, status: :ok
+      end
+    end
+
+    def respond_to_on_destroy
+      head :no_content
     end
   end
 end

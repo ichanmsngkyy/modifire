@@ -313,14 +313,22 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
   jwt.secret = ENV["DEVISE_JWT_SECRET_KEY"]
+  Rails.logger.info "=== JWT SECRET LOADED: #{jwt.secret.present?} ==="
+
   jwt.dispatch_requests = [
     [ "POST", %r{^/api/auth/login$} ]
   ]
-  jwt.revocation_requests = [
-    [ "DELETE", %r{^/api/auth/logout$} ]
-  ]
-  jwt.expiration_time = 1.day.to_i
+   jwt.revocation_requests = [
+     [ "DELETE", %r{^/api/auth/logout$} ]
+   ]
+   jwt.expiration_time = 1.day.to_i
+
+    jwt.request_formats = { user: [ :json ] }
 end
 
+# Fix this part - change jwt_authenticatable to jwt
+config.warden do |manager|
+  manager.default_strategies(scope: :user).unshift :jwt
+end
 config.navigational_formats = []
 end

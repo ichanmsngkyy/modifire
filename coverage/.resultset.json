@@ -1,6 +1,22 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/chan/modifire-api/app/controllers/api/attachments_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
       "/home/chan/modifire-api/app/controllers/api/auth/registrations_controller.rb": {
         "lines": [
           0,
@@ -107,7 +123,84 @@
         ],
         "branches": {}
       },
+      "/home/chan/modifire-api/app/controllers/api/guns_controller.rb": {
+        "lines": [
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
       "/home/chan/modifire-api/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/home/chan/modifire-api/app/controllers/build_controller.rb": {
         "lines": [
           0,
           0
@@ -147,12 +240,19 @@
         "lines": [
           0,
           0,
+          0,
+          0,
+          0,
+          0,
           0
         ],
         "branches": {}
       },
       "/home/chan/modifire-api/app/models/build.rb": {
         "lines": [
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -172,6 +272,11 @@
       "/home/chan/modifire-api/app/models/gun.rb": {
         "lines": [
           0,
+          0,
+          0,
+          0,
+          0,
+          null,
           0,
           0
         ],
@@ -209,6 +314,7 @@
         "lines": [
           0,
           0,
+          0,
           0
         ],
         "branches": {}
@@ -220,6 +326,9 @@
           0,
           0,
           null,
+          0,
+          0,
+          0,
           0,
           null,
           0,
@@ -245,6 +354,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1763025084
+    "timestamp": 1763136162
   }
 }
