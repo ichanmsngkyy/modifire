@@ -2,15 +2,22 @@ class ChangeCategoryToIntegerInGuns < ActiveRecord::Migration[6.0]
   def up
     add_column :guns, :category_tmp, :integer
 
-    Gun.reset_column_information
-    Gun.find_each do |gun|
-      case gun.category
-      when "rifle" then gun.update_column(:category_tmp, 0)
-      when "pistol" then gun.update_column(:category_tmp, 1)
-      when "smg" then gun.update_column(:category_tmp, 2)
-      when "shotgun" then gun.update_column(:category_tmp, 3)
-      when "sniper" then gun.update_column(:category_tmp, 4)
+    # Use an anonymous class to avoid enum issues
+    gun_class = Class.new(ActiveRecord::Base) do
+      self.table_name = 'guns'
+    end
+
+    gun_class.reset_column_information
+    gun_class.find_each do |gun|
+      value = case gun.category
+      when "rifle" then 0
+      when "pistol" then 1
+      when "smg" then 2
+      when "shotgun" then 3
+      when "sniper" then 4
+      else nil
       end
+      gun.update_column(:category_tmp, value)
     end
 
     remove_column :guns, :category
@@ -20,15 +27,21 @@ class ChangeCategoryToIntegerInGuns < ActiveRecord::Migration[6.0]
   def down
     add_column :guns, :category_tmp, :string
 
-    Gun.reset_column_information
-    Gun.find_each do |gun|
-      case gun.category
-      when 0 then gun.update_column(:category_tmp, "rifle")
-      when 1 then gun.update_column(:category_tmp, "pistol")
-      when 2 then gun.update_column(:category_tmp, "smg")
-      when 3 then gun.update_column(:category_tmp, "shotgun")
-      when 4 then gun.update_column(:category_tmp, "sniper")
+    gun_class = Class.new(ActiveRecord::Base) do
+      self.table_name = 'guns'
+    end
+
+    gun_class.reset_column_information
+    gun_class.find_each do |gun|
+      value = case gun.category
+      when 0 then "rifle"
+      when 1 then "pistol"
+      when 2 then "smg"
+      when 3 then "shotgun"
+      when 4 then "sniper"
+      else nil
       end
+      gun.update_column(:category_tmp, value)
     end
 
     remove_column :guns, :category

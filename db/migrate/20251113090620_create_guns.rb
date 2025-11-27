@@ -3,7 +3,7 @@ class CreateGuns < ActiveRecord::Migration[8.1]
     create_table :guns do |t|
       t.string :name
       t.text :description
-      t.string :category
+  t.integer :category
 
       t.timestamps
     end
