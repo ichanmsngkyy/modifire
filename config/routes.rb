@@ -10,11 +10,13 @@ Rails.application.routes.draw do
                      sessions: "api/auth/sessions",
                      registrations: "api/auth/registrations"
                    }
+
   namespace :api do
-     get "current_user", to: "users#current"
+    get "current_user", to: "users#current"
     resources :guns, only: [ :index, :show ]
     resources :attachments, only: [ :index, :show ]
-    end
+    resources :builds
+  end
 
 
   get "/health", to: proc { [ 200, {}, [ "OK" ] ] }
