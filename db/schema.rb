@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_01_120000) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_01_121500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -66,12 +66,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_120000) do
   end
 
   create_table "builds", force: :cascade do |t|
+    t.jsonb "attachment_overlays", default: []
     t.datetime "created_at", null: false
     t.bigint "gun_id", null: false
     t.boolean "is_public"
     t.integer "likes_count", default: 0
     t.string "name"
     t.string "slug"
+    t.string "title"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["gun_id"], name: "index_builds_on_gun_id"

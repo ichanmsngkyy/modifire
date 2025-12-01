@@ -1,3 +1,12 @@
+  def destroy
+    build = Build.find_by(id: params[:id])
+    if build
+      build.destroy
+      head :no_content
+    else
+      head :not_found
+    end
+  end
 
 class Api::BuildsController < ApplicationController
   def index
@@ -35,26 +44,13 @@ class Api::BuildsController < ApplicationController
     end
   end
 
-  def index
-    @builds = Build.includes(:gun)
-    render json: @builds.map { |build| build_response(build) }
-  end
-
-  def show
-    @build = Build.includes(:gun).find(params[:id])
-    render json: build_response(@build)
-  end
-
-  def create
-    build = Build.new(build_params.except(:attachment_ids))
-
-    if build.save
-      if build_params[:attachment_ids]
-        build.attachments << Attachment.where(id: build_params[:attachment_ids])
-      end
-      render json: build, status: :created
+   def destroy
+    build = Build.find_by(id: params[:id])
+    if build
+      build.destroy
+      head :no_content
     else
-      render json: build.errors, status: :unprocessable_entity
+      head :not_found
     end
   end
 
@@ -75,6 +71,7 @@ class Api::BuildsController < ApplicationController
     {
       id: build.id,
       name: build.name,
+      title: build.title,
       gun: gun && {
         id: gun.id,
         name: gun.name,
@@ -82,13 +79,14 @@ class Api::BuildsController < ApplicationController
       },
       user_id: build.user_id,
       gun_id: build.gun_id,
-      attachments: build.attachments.map { |att| { id: att.id, name: att.name, attachment_type: att.attachment_type } },
+      attachments: build.build_attachments.includes(:attachment).map { |ba| { id: ba.attachment.id, name: ba.attachment.name, attachment_type: ba.attachment.attachment_type, location: ba.location } },
+      attachment_overlays: build.attachment_overlays,
       created_at: build.created_at,
       updated_at: build.updated_at
     }
   end
 
   def build_params
-    params.require(:build).permit(:name, :user_id, :gun_id, attachment_ids: [])
+    params.require(:build).permit(:name, :title, :user_id, :gun_id, attachment_ids: [], attachment_overlays: [ :id, :base_id, :x, :y, :width, :height, :name, :base_image_url ])
   end
 end
