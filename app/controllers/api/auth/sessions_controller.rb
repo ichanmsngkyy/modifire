@@ -12,34 +12,38 @@ module Api
         end
       end
 
-
-
       def create
-        user_params = params.require(:user).permit(:username, :password)
-        if user_params[:username].blank? || user_params[:password].blank?
-          render json: {
-            status: { code: 401, message: "Invalid username or password." }
-          }, status: :unauthorized
-          return
-        end
-        user = User.find_for_database_authentication(username: user_params[:username])
+  user_params = params.require(:user).permit(:username, :password)
+  if user_params[:username].blank? || user_params[:password].blank?
+    render json: {
+      status: { code: 401, message: "Invalid username or password." }
+    }, status: :unauthorized
+    return
+  end
+  user = User.find_for_database_authentication(username: user_params[:username])
 
-        if user && user.valid_password?(user_params[:password])
-          # Generate JWT token manually
-          token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
+  if user && user.valid_password?(user_params[:password])
+    # Generate JWT token manually
+    token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
 
-          response.set_header("Authorization", "Bearer #{token}")
+    response.set_header("Authorization", "Bearer #{token}")
 
-          render json: {
-            status: { code: 200, message: "Logged in successfully." },
-            data: { id: user.id, username: user.username, email: user.email }
-          }, status: :ok
-        else
-          render json: {
-            status: { code: 401, message: "Invalid username or password." }
-          }, status: :unauthorized
-        end
-      end
+    render json: {
+      status: { code: 200, message: "Logged in successfully." },
+      data: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role  # ADD THIS LINE - return role as integer (0 or 1)
+      }
+    }, status: :ok
+  else
+    render json: {
+      status: { code: 401, message: "Invalid username or password." }
+    }, status: :unauthorized
+  end
+end
+
 
       def failure
         render json: {

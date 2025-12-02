@@ -3,6 +3,8 @@ class User < ApplicationRecord
        :recoverable, :rememberable, :validatable,
        :jwt_authenticatable, jwt_revocation_strategy: JwtDenyList
 
+  enum :role, { user: 0, admin: 1 }
+
   before_create :generate_jti
   has_many :builds
   has_many :likes

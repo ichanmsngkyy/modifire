@@ -16,7 +16,7 @@ Dir.glob(Rails.root.join('public/images/guns/*.png')).each do |file_path|
   gun = Gun.find_or_create_by!(name: name, category: category)
 
 
-  
+
   gun.base_image.attach(
     io: File.open(file_path),
     filename: File.basename(file_path),

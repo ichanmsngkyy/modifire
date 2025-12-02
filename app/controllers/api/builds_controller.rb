@@ -1,16 +1,12 @@
-  def destroy
-    build = Build.find_by(id: params[:id])
-    if build
-      build.destroy
-      head :no_content
-    else
-      head :not_found
-    end
-  end
-
 class Api::BuildsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @builds = Build.includes(:gun)
+    if current_user&.admin?
+      @builds = Build.includes(:gun)
+    else
+      @builds = current_user.builds.includes(:gun)
+    end
     render json: @builds.map { |build| build_response(build) }
   end
 
@@ -44,13 +40,13 @@ class Api::BuildsController < ApplicationController
     end
   end
 
-   def destroy
+  def destroy
     build = Build.find_by(id: params[:id])
-    if build
+    if build && (current_user&.admin? || build.user_id == current_user&.id)
       build.destroy
       head :no_content
     else
-      head :not_found
+      render json: { error: "Unauthorized or build not found" }, status: :forbidden
     end
   end
 

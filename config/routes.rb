@@ -11,11 +11,18 @@ Rails.application.routes.draw do
                      registrations: "api/auth/registrations"
                    }
 
+
   namespace :api do
     get "current_user", to: "users#current"
+    resources :users, only: [ :index, :destroy ]
     resources :guns, only: [ :index, :show ]
     resources :attachments, only: [ :index, :show ]
     resources :builds
+
+    namespace :admin do
+      resources :users, only: [ :index, :destroy ]
+      resources :builds, only: [ :index, :destroy ]
+    end
   end
 
 
